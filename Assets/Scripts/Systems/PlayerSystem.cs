@@ -6,6 +6,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateBefore(typeof(EnemySystem))]
 [UpdateBefore(typeof(MovableSystem))]
 public class PlayerSystem : SystemBase
 {
