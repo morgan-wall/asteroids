@@ -17,7 +17,6 @@ public class DamageSystem : SystemBase
         Entities.ForEach((Entity entity, DynamicBuffer<CollisionBuffer> collisionBuffer, ref Health health, in PhysicsCollider collider) =>
         {
             uint belongsTo = collider.Value.Value.Filter.BelongsTo;
-            bool destroyDamager = HasComponent<DestroyDamager>(entity);
             for (int i = 0; i < collisionBuffer.Length; ++i)
             {
                 Entity damagingEntity = collisionBuffer[i].entity;
@@ -27,7 +26,7 @@ public class DamageSystem : SystemBase
                     if ((belongsTo & damage.physicsCategoryMask) != 0)
                     {
                         health.value -= damage.value;
-                        if (destroyDamager)
+                        if (damage.destroySelfOnApply)
                         {
                             entityCommandBuffer.DestroyEntity(damagingEntity);
                         }

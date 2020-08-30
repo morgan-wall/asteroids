@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 10
+  m_destroySelfOnApply: 1
   m_targetedPhysicsCategories: 04000000
 --- !u!114 &8592208017217405583
 MonoBehaviour:

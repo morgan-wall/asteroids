@@ -9,6 +9,9 @@ public class DamageAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     private float m_damage = default;
 
     [SerializeField]
+    private bool m_destroySelfOnApply = default;
+
+    [SerializeField]
     private PhysicsCategory[] m_targetedPhysicsCategories = default;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
@@ -24,6 +27,7 @@ public class DamageAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new Damage
         {
             value = m_damage,
+            destroySelfOnApply = m_destroySelfOnApply,
             physicsCategoryMask = physicCategoryMask,
         });
     }
