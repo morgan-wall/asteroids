@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Mathematics;
-using UnityEngine;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 [RequiresEntityConversion]
@@ -29,14 +28,13 @@ public class SpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecl
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        var spawner = new Spawner
+        dstManager.AddComponentData(entity, new Spawner
         {
             prefab = conversionSystem.GetPrimaryEntity(m_prefab),
             maxOffset = m_maxOffset,
             timeUntilNextSpawn = m_timeUntilNextSpawn,
             minTimeBetweenSpawns = m_minTimeBetweenSpawns,
             maxTimeBetweenSpawns = m_maxTimeBetweenSpawns,
-        };
-        dstManager.AddComponentData(entity, spawner);
+        });
     }
 }

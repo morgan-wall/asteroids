@@ -26,13 +26,12 @@ public class FreezePositionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         }
 
         // Setup the component
-        var freezePosition = new FreezePosition
+        dstManager.AddComponentData(entity, new FreezePosition
         {
             x = x,
             y = y,
             z = z,
             position = position,
-        };
-        dstManager.AddComponentData(entity, freezePosition);
+        });
     }
 }

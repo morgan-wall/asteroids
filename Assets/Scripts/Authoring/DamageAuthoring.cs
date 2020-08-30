@@ -1,6 +1,5 @@
-﻿using Unity.Entities;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
+using Unity.Entities;
 
 [DisallowMultipleComponent]
 [RequiresEntityConversion]
@@ -22,11 +21,10 @@ public class DamageAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         }
 
         // Add the damage component
-        var damage = new Damage
+        dstManager.AddComponentData(entity, new Damage
         {
             value = m_damage,
             physicCategoryMask = physicCategoryMask,
-        };
-        dstManager.AddComponentData(entity, damage);
+        });
     }
 }

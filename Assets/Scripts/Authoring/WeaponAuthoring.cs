@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 [RequiresEntityConversion]
@@ -23,13 +23,12 @@ public class WeaponAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecla
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        var weapon = new Weapon
+        dstManager.AddComponentData(entity, new Weapon
         {
             fire = false,
             projectilePrefab = conversionSystem.GetPrimaryEntity(m_projectilePrefab),
             muzzleOffset = muzzleOffset,
             muzzleDirection = muzzleDirection,
-        };
-        dstManager.AddComponentData(entity, weapon);
+        });
     }
 }
