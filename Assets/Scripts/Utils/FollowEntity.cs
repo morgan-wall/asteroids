@@ -15,10 +15,11 @@ public class FollowEntity : MonoBehaviour
     private bool m_followZ = default;
 
     [SerializeField]
-    private float m_lerpProportionPerSecond = 2.0f;
+    private float m_smoothDuration = 0.1f;
 
     private EntityManager m_entityManager;
-    private Vector3 m_lastDesiredPosition;
+    private Vector3 m_lastDesiredPosition = Vector3.zero;
+    private Vector3 m_followVelocity = Vector3.zero;
 
     public Entity EntityToFollow { get; set; }
 
@@ -57,7 +58,6 @@ public class FollowEntity : MonoBehaviour
 
     private void MoveToPosition()
     {
-        float lerpProportion = Mathf.Min(1.0f, m_lerpProportionPerSecond * Time.deltaTime);
-        transform.position = Vector3.Lerp(transform.position, m_lastDesiredPosition, lerpProportion);
+        transform.position = Vector3.SmoothDamp(transform.position, m_lastDesiredPosition, ref m_followVelocity, m_smoothDuration);
     }
 }
