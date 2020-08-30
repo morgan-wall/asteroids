@@ -4,6 +4,9 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
 
+[UpdateAfter(typeof(PlayerSystem))]
+[UpdateAfter(typeof(EnemySystem))]
+[UpdateBefore(typeof(MovableSystem))]
 public class WeaponSystem : SystemBase
 {
     EntityCommandBufferSystem m_memoryBarrier = null;
@@ -11,7 +14,7 @@ public class WeaponSystem : SystemBase
     protected override void OnCreate()
     {
         base.OnCreate();
-        m_memoryBarrier = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        m_memoryBarrier = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
     }
 
     protected override void OnUpdate()

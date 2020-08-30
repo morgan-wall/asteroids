@@ -9,7 +9,7 @@ public class SpawnSystem : SystemBase
     protected override void OnCreate()
     {
         base.OnCreate();
-        m_memoryBarrier = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        m_memoryBarrier = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
     }
 
     protected override void OnUpdate()

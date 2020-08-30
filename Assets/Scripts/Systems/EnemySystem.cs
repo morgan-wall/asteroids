@@ -5,7 +5,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[UpdateBefore(typeof(MovableSystem))]
+[UpdateBefore(typeof(WeaponSystem))]
 public class EnemySystem : SystemBase
 {
     protected override void OnUpdate()
