@@ -2,9 +2,10 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 
-[GenerateAuthoringComponent]
 public struct Damage : IComponentData
 {
     public float value;
+    public uint physicCategoryMask;
 }

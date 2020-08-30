@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8118879931371778212}
   - component: {fileID: 8118879931371778222}
   - component: {fileID: 6919186673931070694}
-  - component: {fileID: 8118879931371778220}
+  - component: {fileID: 8475953567628203112}
   m_Layer: 0
   m_Name: Obstruction
   m_TagString: Untagged
@@ -336,7 +336,7 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
---- !u!114 &8118879931371778220
+--- !u!114 &8475953567628203112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,7 +345,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8118879931371778213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5266a109f457b2a4e945698ee815669d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6df379a33043b42aef63164a3d552c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 10
+  m_damage: 10
+  m_targetedPhysicCategories: 04000000
