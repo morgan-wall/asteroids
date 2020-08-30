@@ -16,15 +16,10 @@ public class MovableSystem : SystemBase
     {
         float deltaTime = Time.DeltaTime;
         
-        //Entities.ForEach((ref Translation translation, ref Rotation rotation, in Movable movable) =>
-        //{
-        //    translation.Value += deltaTime * movable.translationSpeed * movable.direction;
-        //    rotation.Value = math.mul(rotation.Value.value, quaternion.AxisAngle(movable.rotationAxis, deltaTime * movable.rotationSpeed));
-        //}).Schedule();
-
-        Entities.ForEach((ref PhysicsVelocity physicsVelocity, in Movable movable) =>
+        Entities.ForEach((ref PhysicsVelocity physicsVelocity, ref Rotation rotation, in Movable movable) =>
         {
             physicsVelocity.Linear = movable.translationSpeed * movable.direction;
+            rotation.Value = quaternion.LookRotation(movable.lookDirection, movable.up);
         }).Schedule();
     }
 }

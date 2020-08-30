@@ -5,6 +5,6 @@ public struct Weapon : IComponentData
 {
     public bool fire;
     public Entity projectilePrefab;
-    public float3 muzzleOffset;
+    public float muzzleOffset;
     public float3 muzzleDirection;
 }

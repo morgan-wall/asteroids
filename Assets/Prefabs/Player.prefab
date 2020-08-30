@@ -429,6 +429,14 @@ MonoBehaviour:
     x: 0
     y: 1
     z: 0
+  lookDirection:
+    x: 0
+    y: 0
+    z: 1
+  up:
+    x: 0
+    y: 1
+    z: 0
 --- !u!114 &327501876156022232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,10 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectilePrefab: {fileID: 4350065757799817070, guid: a603eb6c46b01b74b8413c4ffd86c3ad, type: 3}
-  muzzleOffset:
-    x: 0
-    y: 0
-    z: 2
+  muzzleOffset: 1
   muzzleDirection:
     x: 0
     y: 0

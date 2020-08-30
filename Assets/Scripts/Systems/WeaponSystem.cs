@@ -18,7 +18,7 @@ public class WeaponSystem : SystemBase
     {
         var commandBuffer = m_memoryBarrier.CreateCommandBuffer().AsParallelWriter();
 
-        Entities.ForEach((int entityInQueryIndex, ref Weapon weapon, in Translation translation, in LocalToWorld localToWorld) =>
+        Entities.ForEach((int entityInQueryIndex, ref Weapon weapon, in Translation translation, in Rotation rotation, in LocalToWorld localToWorld) =>
         {
             if (!weapon.fire)
             {
@@ -26,20 +26,17 @@ public class WeaponSystem : SystemBase
             }
             weapon.fire = false;
             
+            float3 muzzleForward = math.mul(localToWorld.Rotation, weapon.muzzleDirection);
             Entity instance = commandBuffer.Instantiate(entityInQueryIndex, weapon.projectilePrefab);
-            
-            var instanceTranslation = new Translation
+            commandBuffer.SetComponent(entityInQueryIndex, instance, new Translation
             {
-                Value = translation.Value + weapon.muzzleOffset,
-            };
-            commandBuffer.SetComponent(entityInQueryIndex, instance, instanceTranslation);
-
-            var physicsVelocity = new PhysicsVelocity
+                Value = translation.Value + (muzzleForward * weapon.muzzleOffset),
+            });
+            commandBuffer.SetComponent(entityInQueryIndex, instance, new PhysicsVelocity
             {
-                Linear = weapon.muzzleDirection, // MW_TODO
+                Linear = muzzleForward,
                 Angular = float3.zero,
-            };
-            commandBuffer.SetComponent(entityInQueryIndex, instance, physicsVelocity);
+            });
         }).ScheduleParallel();
 
         m_memoryBarrier.AddJobHandleForProducer(Dependency);

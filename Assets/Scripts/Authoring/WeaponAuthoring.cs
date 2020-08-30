@@ -11,7 +11,7 @@ public class WeaponAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecla
     private GameObject m_projectilePrefab = default;
 
     [SerializeField]
-    private float3 muzzleOffset = default;
+    private float muzzleOffset = default;
     
     [SerializeField]
     private float3 muzzleDirection = default;

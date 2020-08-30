@@ -347,6 +347,14 @@ MonoBehaviour:
     x: 0
     y: 1
     z: 0
+  lookDirection:
+    x: 0
+    y: 0
+    z: 1
+  up:
+    x: 0
+    y: 1
+    z: 0
 --- !u!114 &5375403884006376079
 MonoBehaviour:
   m_ObjectHideFlags: 0

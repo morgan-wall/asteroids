@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -8,14 +9,24 @@ public class PlayerSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        var gamepad = Gamepad.current;
+        
+        // Process movement
+        Vector2 direction = gamepad.leftStick.ReadValue();
+        direction.Normalize();
+        Vector2 lookDirection = gamepad.rightStick.ReadValue();
+        lookDirection.Normalize();
         Entities.WithAll<Player>().ForEach((ref Movable movable) =>
         {
-            movable.direction = new float3(x, 0.0f, z);
+            movable.direction = new float3(direction.x, 0.0f, direction.y);
+            if (lookDirection != Vector2.zero)
+            {
+                movable.lookDirection = new float3(lookDirection.x, 0.0f, lookDirection.y);
+            }
         }).Schedule();
 
-        bool fire = Input.GetButtonDown("Fire1");
+        // Process attacks
+        bool fire = gamepad.rightTrigger.wasPressedThisFrame;
         Entities.WithAll<Player>().ForEach((ref Weapon weapon) =>
         {
             weapon.fire = fire;
