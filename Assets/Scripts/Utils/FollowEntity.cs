@@ -14,36 +14,50 @@ public class FollowEntity : MonoBehaviour
     [SerializeField]
     private bool m_followZ = default;
 
+    [SerializeField]
+    private float m_lerpProportionPerSecond = 2.0f;
+
     private EntityManager m_entityManager;
+    private Vector3 m_lastDesiredPosition;
 
     public Entity EntityToFollow { get; set; }
 
     private void Awake()
     {
         m_entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        m_lastDesiredPosition = transform.position;
     }
 
     private void LateUpdate()
     {
-        if (EntityToFollow == null)
+        if (EntityToFollow == null
+            || !m_entityManager.HasComponent<Translation>(EntityToFollow))
         {
+            MoveToPosition();
             return;
         }
 
-        Vector3 newPosition = transform.position;
+        m_lastDesiredPosition = transform.position;
         Translation entityTranslation = m_entityManager.GetComponentData<Translation>(EntityToFollow);
         if (m_followX)
         {
-            newPosition.x = entityTranslation.Value.x;
+            m_lastDesiredPosition.x = entityTranslation.Value.x;
         }
         if (m_followY)
         {
-            newPosition.y = entityTranslation.Value.y;
+            m_lastDesiredPosition.y = entityTranslation.Value.y;
         }
         if (m_followZ)
         {
-            newPosition.z = entityTranslation.Value.z;
+            m_lastDesiredPosition.z = entityTranslation.Value.z;
         }
-        transform.position = newPosition;
+
+        MoveToPosition();
+    }
+
+    private void MoveToPosition()
+    {
+        float lerpProportion = Mathf.Min(1.0f, m_lerpProportionPerSecond * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, m_lastDesiredPosition, lerpProportion);
     }
 }
