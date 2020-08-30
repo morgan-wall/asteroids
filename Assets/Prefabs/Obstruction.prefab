@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8118879931371778211}
   - component: {fileID: 8118879931371778212}
   - component: {fileID: 8118879931371778222}
-  - component: {fileID: 8118879931371778221}
+  - component: {fileID: 6919186673931070694}
   - component: {fileID: 8118879931371778220}
   m_Layer: 0
   m_Name: Obstruction
@@ -31,8 +31,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8118879931371778213}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.67, y: -10, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 5
---- !u!114 &8118879931371778221
+--- !u!114 &6919186673931070694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8118879931371778213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d2a9372f6c336c47a65bc1332e601b8, type: 3}
+  m_Script: {fileID: 11500000, guid: f5d3ee173b289034fbd060a829b175e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   x: 0
