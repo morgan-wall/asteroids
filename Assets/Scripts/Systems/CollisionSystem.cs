@@ -12,6 +12,7 @@ using Unity.Physics.Systems;
 [UpdateBefore(typeof(DamageSystem))]
 public class CollisionSystem : SystemBase
 {
+    [BurstCompile]
     private struct CollisionJob : ICollisionEventsJob
     {
         public BufferFromEntity<CollisionBuffer> m_collisions;
@@ -38,6 +39,7 @@ public class CollisionSystem : SystemBase
         }
     }
 
+    [BurstCompile]
     private struct TriggerJob : ITriggerEventsJob
     {
         public BufferFromEntity<TriggerBuffer> m_triggers;
