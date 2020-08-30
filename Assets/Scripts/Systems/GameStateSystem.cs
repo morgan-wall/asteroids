@@ -7,7 +7,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 
 [AlwaysUpdateSystem]
-[UpdateAfter(typeof(EndSimulationEntityCommandBufferSystem))]
+[UpdateInGroup(typeof(PresentationSystemGroup))]
 public class GameStateSystem : SystemBase
 {
     protected override void OnUpdate()

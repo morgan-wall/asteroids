@@ -1,14 +1,11 @@
-﻿using Unity.Burst;
-using Unity.Collections;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
-using Unity.Transforms;
 using Unity.Physics;
 using Unity.Physics.Systems;
 
 [UpdateAfter(typeof(FreezePositionSystem))]
-[UpdateBefore(typeof(StepPhysicsWorld))] // MW_TODO: consider BuildPhysicsWorld.
+[UpdateBefore(typeof(StepPhysicsWorld))]
 public class ConstantForceSystem : SystemBase
 {
     protected override void OnUpdate()

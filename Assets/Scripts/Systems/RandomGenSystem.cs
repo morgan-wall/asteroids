@@ -1,15 +1,12 @@
-﻿using Unity.Burst;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
-using Unity.Transforms;
 
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 public class RandomGenSystem : SystemBase
 {
-    public NativeArray<Unity.Mathematics.Random> RandomGenPerThread { get; private set; }
+    public NativeArray<Random> RandomGenPerThread { get; private set; }
 
     protected override void OnCreate()
     {
