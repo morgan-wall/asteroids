@@ -12,9 +12,9 @@ public class DamageSystem : SystemBase
     protected override void OnUpdate()
     {
         var entityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        var entityCommandBuffer = entityCommandBufferSystem.CreateCommandBuffer(); // MW_TODO: .AsParallelWriter();
+        var entityCommandBuffer = entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
 
-        Entities.ForEach((Entity entity, DynamicBuffer<CollisionBuffer> collisionBuffer, ref Health health, in PhysicsCollider collider) =>
+        Entities.ForEach((int entityInQueryIndex, Entity entity, DynamicBuffer<CollisionBuffer> collisionBuffer, ref Health health, in PhysicsCollider collider) =>
         {
             uint belongsTo = collider.Value.Value.Filter.BelongsTo;
             for (int i = 0; i < collisionBuffer.Length; ++i)
@@ -28,7 +28,7 @@ public class DamageSystem : SystemBase
                         health.value -= damage.value;
                         if (damage.destroySelfOnApply)
                         {
-                            entityCommandBuffer.DestroyEntity(damagingEntity);
+                            damage.canDestroy = true;
                         }
                     }
                 }
@@ -36,9 +36,17 @@ public class DamageSystem : SystemBase
 
             if (health.value <= 0.0f)
             {
-                entityCommandBuffer.DestroyEntity(entity);
+                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
             }
-        }).Schedule();
+        }).ScheduleParallel();
+
+        Entities.ForEach((int entityInQueryIndex, Entity entity, in Damage damage) =>
+        {
+            if (damage.canDestroy)
+            {
+                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
+            }
+        }).ScheduleParallel();
 
         entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
     }
