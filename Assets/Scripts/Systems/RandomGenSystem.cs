@@ -7,20 +7,20 @@ using Unity.Mathematics;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(InitializationSystemGroup))]
-public class RandomSystem : SystemBase
+public class RandomGenSystem : SystemBase
 {
     public NativeArray<Unity.Mathematics.Random> RandomGenPerThread { get; private set; }
 
     protected override void OnCreate()
     {
         var seed = new System.Random();
-        var rngs = new Random[JobsUtility.MaxJobThreadCount];
+        var randomGenerators = new Random[JobsUtility.MaxJobThreadCount];
         for (int i = 0; i < JobsUtility.MaxJobThreadCount; ++i)
         {
-            rngs[i] = new Random((uint)seed.Next());
+            randomGenerators[i] = new Random((uint)seed.Next());
         }
 
-        RandomGenPerThread = new NativeArray<Random>(rngs, Allocator.Persistent);
+        RandomGenPerThread = new NativeArray<Random>(randomGenerators, Allocator.Persistent);
     }
 
     protected override void OnUpdate()
