@@ -12,7 +12,7 @@ public class DamageSystem : SystemBase
     protected override void OnUpdate()
     {
         var entityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        var entityCommandBuffer = entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
+        var entityCommandBuffer = entityCommandBufferSystem.CreateCommandBuffer();
 
         Entities.ForEach((int entityInQueryIndex, Entity entity, DynamicBuffer<CollisionBuffer> collisionBuffer, ref Health health, in PhysicsCollider collider) =>
         {
@@ -28,7 +28,7 @@ public class DamageSystem : SystemBase
                         health.value -= damage.value;
                         if (damage.destroySelfOnApply)
                         {
-                            damage.canDestroy = true;
+                            entityCommandBuffer.DestroyEntity(damagingEntity);
                         }
                     }
                 }
@@ -36,17 +36,9 @@ public class DamageSystem : SystemBase
 
             if (health.value <= 0.0f)
             {
-                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
+                entityCommandBuffer.DestroyEntity(entity);
             }
-        }).ScheduleParallel();
-
-        Entities.ForEach((int entityInQueryIndex, Entity entity, in Damage damage) =>
-        {
-            if (damage.canDestroy)
-            {
-                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
-            }
-        }).ScheduleParallel();
+        }).Schedule();
 
         entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
     }
