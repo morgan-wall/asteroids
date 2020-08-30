@@ -7,13 +7,19 @@ using Unity.Transforms;
 
 public class SpawnSystem : SystemBase
 {
-    EntityCommandBufferSystem memoryBarrier => World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>(); // MW_TODO: why =>
+    EntityCommandBufferSystem m_memoryBarrier = null;
+
+    protected override void OnCreate()
+    {
+        base.OnCreate();
+        m_memoryBarrier = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+    }
 
     protected override void OnUpdate()
     {
         float deltaTime = Time.DeltaTime;
+        var commandBuffer = m_memoryBarrier.CreateCommandBuffer().AsParallelWriter();
         var randomGenPerThread = World.GetExistingSystem<RandomGenSystem>().RandomGenPerThread;
-        var commandBuffer = memoryBarrier.CreateCommandBuffer();//.AsParallelWriter();
 
         Entities
             .WithNativeDisableParallelForRestriction(randomGenPerThread)
@@ -25,21 +31,21 @@ public class SpawnSystem : SystemBase
                 var randomGen = randomGenPerThread[nativeThreadIndex];
                 spawner.timeUntilNextSpawn = randomGen.NextFloat(spawner.minTimeBetweenSpawns, spawner.maxTimeBetweenSpawns);
                 
-                //// Setup the entity
-                Entity spawnedEntity = commandBuffer.Instantiate(spawner.prefab);
+                // Setup the entity
+                Entity spawnedEntity = commandBuffer.Instantiate(entityInQueryIndex, spawner.prefab);
                 var spawnedTranslation = new Translation
                 {
                     Value = translation.Value + randomGen.NextFloat3Direction() * spawner.maxOffset,
                 };
-                commandBuffer.SetComponent(spawnedEntity, translation);
+                commandBuffer.SetComponent(entityInQueryIndex, spawnedEntity, translation);
 
                 // Track the random generator changes
                 randomGenPerThread[nativeThreadIndex] = randomGen;
             }
 
             spawner.timeUntilNextSpawn -= deltaTime;
-        }).Schedule();
+        }).ScheduleParallel();
 
-        memoryBarrier.AddJobHandleForProducer(Dependency);
+        m_memoryBarrier.AddJobHandleForProducer(Dependency);
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486097948935751835}
   - component: {fileID: 486097948935751833}
-  - component: {fileID: 486097948935751834}
+  - component: {fileID: 6346206207453250169}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
---- !u!114 &486097948935751834
+--- !u!114 &6346206207453250169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,11 +54,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 486097948935751844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b258851fc42975429601676e5ac029e, type: 3}
+  m_Script: {fileID: 11500000, guid: 42b2bb19651c39f42b99605e8661ce0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8118879931371778213, guid: 0f296fa289280ef419c2eff2856e61d7, type: 3}
-  maxOffset: 1
-  timeUntilNextSpawn: 1
-  minTimeBetweenSpawns: 1
-  maxTimeBetweenSpawns: 1
+  m_prefab: {fileID: 8118879931371778213, guid: 0f296fa289280ef419c2eff2856e61d7, type: 3}
+  m_maxOffset: 3
+  m_timeUntilNextSpawn: 2
+  m_minTimeBetweenSpawns: 2
+  m_maxTimeBetweenSpawns: 4
