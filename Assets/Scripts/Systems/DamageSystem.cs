@@ -24,7 +24,7 @@ public class DamageSystem : SystemBase
                 if (HasComponent<Damage>(damagingEntity))
                 {
                     var damage = GetComponent<Damage>(damagingEntity);
-                    if ((belongsTo & damage.physicCategoryMask) != 0)
+                    if ((belongsTo & damage.physicsCategoryMask) != 0)
                     {
                         health.value -= damage.value;
                         if (destroyDamager)

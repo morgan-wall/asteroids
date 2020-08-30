@@ -1,11 +1,7 @@
-﻿using System;
-using Unity.Collections;
-using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Physics;
+﻿using Unity.Entities;
 
 public struct Damage : IComponentData
 {
     public float value;
-    public uint physicCategoryMask;
+    public uint physicsCategoryMask;
 }
