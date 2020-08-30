@@ -488,7 +488,7 @@ MonoBehaviour:
   m_followX: 1
   m_followY: 0
   m_followZ: 1
-  m_lerpProportionPerSecond: 5
+  m_smoothDuration: 0.2
 --- !u!1001 &1044269922
 PrefabInstance:
   m_ObjectHideFlags: 0
