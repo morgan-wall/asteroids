@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        EnableSystems(false);
     }
 
     private void EnableSystems(bool enabled)
