@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6df379a33043b42aef63164a3d552c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 10
+  m_damage: 25
   m_destroySelfOnApply: 1
   m_targetedPhysicsCategories: 04000000
 --- !u!114 &8592208017217405583
@@ -434,4 +434,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238e84bec9b428f4c8a0275047ad100d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 10
+  value: 1

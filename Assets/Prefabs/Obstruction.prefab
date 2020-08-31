@@ -348,6 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6df379a33043b42aef63164a3d552c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 10
+  m_damage: 25
   m_destroySelfOnApply: 1
   m_targetedPhysicsCategories: 04000000
