@@ -10,9 +10,6 @@ public class SpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecl
     private GameObject m_prefab = default;
 
     [SerializeField]
-    private float m_maxOffset = default;
-    
-    [SerializeField]
     private float m_timeUntilNextSpawn = default;
     
     [SerializeField]
@@ -20,12 +17,6 @@ public class SpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecl
     
     [SerializeField]
     private float m_maxTimeBetweenSpawns = default;
-
-    [SerializeField]
-    private float m_spawnPointsPerMetre = default;
-    
-    [SerializeField]
-    private float m_spawnRingsPerMetre = default;
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
     {
@@ -37,12 +28,9 @@ public class SpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecl
         dstManager.AddComponentData(entity, new Spawner
         {
             prefab = conversionSystem.GetPrimaryEntity(m_prefab),
-            maxOffset = m_maxOffset,
             timeUntilNextSpawn = m_timeUntilNextSpawn,
             minTimeBetweenSpawns = m_minTimeBetweenSpawns,
             maxTimeBetweenSpawns = m_maxTimeBetweenSpawns,
-            spawnPointsPerMetre = m_spawnPointsPerMetre,
-            spawnRingsPerMetre = m_spawnRingsPerMetre,
         });
     }
 }
