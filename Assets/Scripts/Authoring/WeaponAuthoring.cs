@@ -11,10 +11,10 @@ public class WeaponAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecla
     private GameObject m_projectilePrefab = default;
 
     [SerializeField]
-    private float muzzleOffset = default;
+    private float m_muzzleOffset = default;
     
     [SerializeField]
-    private float3 muzzleDirection = default;
+    private float3 m_muzzleDirection = default;
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
     {
@@ -27,8 +27,8 @@ public class WeaponAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecla
         {
             fire = false,
             projectilePrefab = conversionSystem.GetPrimaryEntity(m_projectilePrefab),
-            muzzleOffset = muzzleOffset,
-            muzzleDirection = muzzleDirection,
+            muzzleOffset = m_muzzleOffset,
+            muzzleDirection = m_muzzleDirection,
         });
     }
 }

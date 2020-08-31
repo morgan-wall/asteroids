@@ -502,8 +502,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectilePrefab: {fileID: 4350065757799817070, guid: a603eb6c46b01b74b8413c4ffd86c3ad, type: 3}
-  muzzleOffset: 1
-  muzzleDirection:
+  m_muzzleOffset: 1
+  m_muzzleDirection:
     x: 0
     y: 0
     z: 1
