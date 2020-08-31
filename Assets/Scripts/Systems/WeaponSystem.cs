@@ -9,17 +9,17 @@ using Unity.Physics;
 [UpdateBefore(typeof(MovableSystem))]
 public class WeaponSystem : SystemBase
 {
-    EntityCommandBufferSystem m_memoryBarrier = null;
+    EntityCommandBufferSystem m_entityCommandBufferSystem = null;
 
     protected override void OnCreate()
     {
         base.OnCreate();
-        m_memoryBarrier = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+        m_entityCommandBufferSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
     }
 
     protected override void OnUpdate()
     {
-        var commandBuffer = m_memoryBarrier.CreateCommandBuffer().AsParallelWriter();
+        var commandBuffer = m_entityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
 
         Entities.ForEach((int entityInQueryIndex, ref Weapon weapon, in Translation translation, in Rotation rotation, in LocalToWorld localToWorld) =>
         {
@@ -42,6 +42,6 @@ public class WeaponSystem : SystemBase
             });
         }).ScheduleParallel();
 
-        m_memoryBarrier.AddJobHandleForProducer(Dependency);
+        m_entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
     }
 }

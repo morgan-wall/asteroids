@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Unity.Assertions;
 using Unity.Entities;
 
 [DisallowMultipleComponent]

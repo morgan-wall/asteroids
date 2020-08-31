@@ -8,18 +8,18 @@ using Unity.Collections;
 [UpdateAfter(typeof(SpawnPointSystem))]
 public class SpawnerSystem : SystemBase
 {
-    EntityCommandBufferSystem m_memoryBarrier = null;
+    EntityCommandBufferSystem m_entityCommandBufferSystem = null;
 
     protected override void OnCreate()
     {
         base.OnCreate();
-        m_memoryBarrier = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+        m_entityCommandBufferSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
     }
 
     protected override void OnUpdate()
     {
         float deltaTime = Time.DeltaTime;
-        var commandBuffer = m_memoryBarrier.CreateCommandBuffer();
+        var commandBuffer = m_entityCommandBufferSystem.CreateCommandBuffer();
         var randomGenPerThread = World.GetExistingSystem<RandomGenSystem>().RandomGenPerThread;
 
         EntityQuery spawnPointQuery = GetEntityQuery(ComponentType.ReadOnly<SpawnPoint>(), ComponentType.ReadOnly<Translation>());
@@ -82,6 +82,6 @@ public class SpawnerSystem : SystemBase
             randomGenPerThread[nativeThreadIndex] = randomGen;    
         }).Schedule();
 
-        m_memoryBarrier.AddJobHandleForProducer(Dependency);
+        m_entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
     }
 }

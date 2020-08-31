@@ -43,7 +43,6 @@ public class SpawnPointManager : MonoBehaviour
     private void Start()
     {
         int spawnRings = math.max(s_minSpawnRings, (int)math.round(m_maxOffset * m_spawnRingsPerMetre));
-        float spawnRingDelta = m_maxOffset / spawnRings;
         for (int i = 0; i < spawnRings; ++i)
         {
             float ringRadius = math.lerp(0.0f, m_maxOffset, (i + 1) / (float)spawnRings);
