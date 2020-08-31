@@ -8,13 +8,13 @@ using Unity.Transforms;
 public class FreezePositionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField]
-    private bool x = default;
+    private bool m_x = default;
 
     [SerializeField]
-    private bool y = default;
+    private bool m_y = default;
 
     [SerializeField]
-    private bool z = default;
+    private bool m_z = default;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -28,9 +28,9 @@ public class FreezePositionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         // Setup the component
         dstManager.AddComponentData(entity, new FreezePosition
         {
-            x = x,
-            y = y,
-            z = z,
+            x = m_x,
+            y = m_y,
+            z = m_z,
             position = position,
         });
     }
