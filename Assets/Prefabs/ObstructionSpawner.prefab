@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 486097948935751835}
   - component: {fileID: 486097948935751833}
   - component: {fileID: 6346206207453250169}
+  - component: {fileID: 8050490287762666680}
   m_Layer: 0
   m_Name: ObstructionSpawner
   m_TagString: Untagged
@@ -62,3 +63,17 @@ MonoBehaviour:
   m_timeUntilNextSpawn: 1
   m_minTimeBetweenSpawns: 1
   m_maxTimeBetweenSpawns: 1
+  m_spawnPointsPerMetre: 1
+  m_spawnRingsPerMetre: 1
+--- !u!114 &8050490287762666680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486097948935751844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3dd54c1af17c24990584803db9c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

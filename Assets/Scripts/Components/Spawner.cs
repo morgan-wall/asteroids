@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 public struct Spawner : IComponentData
 {
@@ -7,4 +8,6 @@ public struct Spawner : IComponentData
     public float timeUntilNextSpawn;
     public float minTimeBetweenSpawns;
     public float maxTimeBetweenSpawns;
+    public float spawnPointsPerMetre;
+    public float spawnRingsPerMetre;
 }

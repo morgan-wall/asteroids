@@ -21,6 +21,12 @@ public class SpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecl
     [SerializeField]
     private float m_maxTimeBetweenSpawns = default;
 
+    [SerializeField]
+    private float m_spawnPointsPerMetre = default;
+    
+    [SerializeField]
+    private float m_spawnRingsPerMetre = default;
+
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
     {
         referencedPrefabs.Add(m_prefab);
@@ -35,6 +41,8 @@ public class SpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDecl
             timeUntilNextSpawn = m_timeUntilNextSpawn,
             minTimeBetweenSpawns = m_minTimeBetweenSpawns,
             maxTimeBetweenSpawns = m_maxTimeBetweenSpawns,
+            spawnPointsPerMetre = m_spawnPointsPerMetre,
+            spawnRingsPerMetre = m_spawnRingsPerMetre,
         });
     }
 }

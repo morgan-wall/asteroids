@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         typeof(PlayerSystem),
         typeof(RandomGenSystem),
         typeof(SpawnSystem),
+        //typeof(SpawnPointSystem),
         typeof(WeaponSystem),
     };
 
