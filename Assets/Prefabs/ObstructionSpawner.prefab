@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 486097948935751833}
   - component: {fileID: 6346206207453250169}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: ObstructionSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_prefab: {fileID: 8118879931371778213, guid: 0f296fa289280ef419c2eff2856e61d7, type: 3}
-  m_maxOffset: 3
-  m_timeUntilNextSpawn: 2
-  m_minTimeBetweenSpawns: 2
-  m_maxTimeBetweenSpawns: 4
+  m_maxOffset: 1
+  m_timeUntilNextSpawn: 1
+  m_minTimeBetweenSpawns: 1
+  m_maxTimeBetweenSpawns: 1
