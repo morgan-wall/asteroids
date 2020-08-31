@@ -54,6 +54,7 @@ public class SpawnerSystem : SystemBase
                     targetIndex = currentIndex;
                     break;
                 }
+                currentIndex = (currentIndex + 1) % spawnPoints.Length;
             }
             if (targetIndex < 0)
             {
