@@ -1,6 +1,9 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Jobs;
 using Unity.Transforms;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class SpawnSystem : SystemBase
 {
@@ -28,13 +31,25 @@ public class SpawnSystem : SystemBase
                 var randomGen = randomGenPerThread[nativeThreadIndex];
                 spawner.timeUntilNextSpawn = randomGen.NextFloat(spawner.minTimeBetweenSpawns, spawner.maxTimeBetweenSpawns);
                 
-                // Setup the entity
                 Entity spawnedEntity = commandBuffer.Instantiate(entityInQueryIndex, spawner.prefab);
-                var spawnedTranslation = new Translation
+
+                // Randomly set the spawn position
+                float offsetDistance = randomGen.NextFloat(0.0f, spawner.maxOffset);
+                float2 groundOffset = math.normalize(randomGen.NextFloat2Direction());
+                float3 offset = new float3(groundOffset.x, 0.0f, groundOffset.y) * offsetDistance;
+                commandBuffer.SetComponent(entityInQueryIndex, spawnedEntity, new Translation
                 {
-                    Value = translation.Value + randomGen.NextFloat3Direction() * spawner.maxOffset,
-                };
-                commandBuffer.SetComponent(entityInQueryIndex, spawnedEntity, translation);
+                    Value = translation.Value + offset,
+                });
+
+                // Randomly set the projectile forces
+                float2 groundDirection = math.normalize(randomGen.NextFloat2Direction());
+                float3 linearVelocity = new float3(groundDirection.x, 0.0f, groundDirection.y);
+                commandBuffer.SetComponent(entityInQueryIndex, spawnedEntity, new PhysicsVelocity
+                {
+                    Linear = linearVelocity,
+                    Angular = float3.zero,
+                });
 
                 // Track the random generator changes
                 randomGenPerThread[nativeThreadIndex] = randomGen;

@@ -618,6 +618,14 @@ PrefabInstance:
       propertyPath: m_maxTimeBetweenSpawns
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6346206207453250169, guid: 3f429dede5d4922409cd3c579d536f0b, type: 3}
+      propertyPath: m_maxOffset
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346206207453250169, guid: 3f429dede5d4922409cd3c579d536f0b, type: 3}
+      propertyPath: m_timeUntilNextSpawn
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f429dede5d4922409cd3c579d536f0b, type: 3}
 --- !u!4 &1060617566 stripped
