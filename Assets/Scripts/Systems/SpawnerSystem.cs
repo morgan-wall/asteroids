@@ -41,24 +41,36 @@ public class SpawnerSystem : SystemBase
             var randomGen = randomGenPerThread[nativeThreadIndex];
             spawner.timeUntilNextSpawn += randomGen.NextFloat(spawner.minTimeBetweenSpawns, spawner.maxTimeBetweenSpawns);
             
-            // Determine if a valid spawn point is available
-            int targetIndex = -1;
-            int lastIndex = randomGen.NextInt(0, spawnPoints.Length);
-            int currentIndex = (lastIndex + 1) % spawnPoints.Length;
-            while (currentIndex != lastIndex)
+            // Generate a random sampling of indices
+            NativeArray<int> spawnPointIndices = new NativeArray<int>(spawnPoints.Length, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
+            for (int i = 0; i < spawnPointIndices.Length; ++i)
             {
-                var spawnPoint = GetComponent<SpawnPoint>(spawnPoints[currentIndex]);
+                spawnPointIndices[i] = i;
+            }
+            for (int i = spawnPointIndices.Length - 1; i > 0; --i)
+            {
+                int temp = spawnPointIndices[i];
+                int swapIndex = randomGen.NextInt(0, i + 1);
+                spawnPointIndices[i] = spawnPointIndices[swapIndex];
+                spawnPointIndices[swapIndex] = temp;
+            }
+
+            // Retrieve a valid spawn point
+            int targetIndex = -1;
+            for (int i = 0; i < spawnPointIndices.Length; ++i)
+            {
+                var spawnPoint = GetComponent<SpawnPoint>(spawnPoints[spawnPointIndices[i]]);
                 if (!spawnPoint.occluded)
                 {
-                    targetIndex = currentIndex;
+                    targetIndex = i;
                     break;
                 }
-                currentIndex = (currentIndex + 1) % spawnPoints.Length;
             }
             if (targetIndex < 0)
             {
                 // Track the random generator changes
                 randomGenPerThread[nativeThreadIndex] = randomGen;  
+                spawnPointIndices.Dispose();
                 return;
             }
 
@@ -80,6 +92,7 @@ public class SpawnerSystem : SystemBase
         
             // Track the random generator changes
             randomGenPerThread[nativeThreadIndex] = randomGen;    
+            spawnPointIndices.Dispose();
         }).Schedule();
 
         m_entityCommandBufferSystem.AddJobHandleForProducer(Dependency);
