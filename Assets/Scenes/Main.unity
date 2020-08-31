@@ -551,8 +551,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_spawnPointPrefab: {fileID: 8179202097569893322, guid: f5df0168faeace44794b877ad71397e1, type: 3}
-  m_maxOffset: 40
-  m_spawnPointsPerMetre: 0.5
+  m_maxOffset: 45
+  m_spawnPointsPerMetre: 0.09
   m_spawnRingsPerMetre: 5
 --- !u!4 &636237025
 Transform:
