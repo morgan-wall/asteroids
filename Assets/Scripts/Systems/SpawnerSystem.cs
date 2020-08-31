@@ -4,7 +4,6 @@ using Unity.Physics;
 using Unity.Jobs;
 using Unity.Transforms;
 using Unity.Collections;
-using System.Runtime.InteropServices;
 
 [UpdateAfter(typeof(SpawnPointSystem))]
 public class SpawnerSystem : SystemBase
