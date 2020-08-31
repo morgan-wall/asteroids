@@ -22,10 +22,12 @@ public class SpawnerSystem : SystemBase
         var commandBuffer = m_memoryBarrier.CreateCommandBuffer();
         var randomGenPerThread = World.GetExistingSystem<RandomGenSystem>().RandomGenPerThread;
 
-        EntityQuery spawnPointQuery = GetEntityQuery(typeof(SpawnPoint), typeof(Translation));
-        NativeArray<Entity> spawnPoints = spawnPointQuery.ToEntityArray(Allocator.TempJob);
+        EntityQuery spawnPointQuery = GetEntityQuery(ComponentType.ReadOnly<SpawnPoint>(), ComponentType.ReadOnly<Translation>());
+        var spawnPoints = spawnPointQuery.ToEntityArrayAsync(Allocator.TempJob, out var jobHandle);
+        Dependency = JobHandle.CombineDependencies(Dependency, jobHandle);
 
         Entities
+            .WithDisposeOnCompletion(spawnPoints)
             .WithNativeDisableParallelForRestriction(randomGenPerThread)
             .ForEach((int nativeThreadIndex, int entityInQueryIndex, ref Spawner spawner) =>
         {
@@ -78,10 +80,8 @@ public class SpawnerSystem : SystemBase
         
             // Track the random generator changes
             randomGenPerThread[nativeThreadIndex] = randomGen;    
-        }).Run();
+        }).Schedule();
 
         m_memoryBarrier.AddJobHandleForProducer(Dependency);
-
-        spawnPoints.Dispose();
     }
 }

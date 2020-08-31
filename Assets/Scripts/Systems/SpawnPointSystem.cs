@@ -9,10 +9,13 @@ public class SpawnPointSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        EntityQuery occluderQuery = GetEntityQuery(typeof(SpawnPointOccluder), typeof(Translation));
-        NativeArray<Entity> occluders = occluderQuery.ToEntityArray(Allocator.TempJob);
+        EntityQuery occluderQuery = GetEntityQuery(ComponentType.ReadOnly<Translation>(), ComponentType.ReadWrite<SpawnPointOccluder>());
+        var occluders = occluderQuery.ToEntityArrayAsync(Allocator.TempJob, out var jobHandle);
+        Dependency = JobHandle.CombineDependencies(Dependency, jobHandle);
 
-        Entities.ForEach((ref SpawnPoint spawnPoint, in Translation translation) =>
+        Entities
+            .WithDisposeOnCompletion(occluders)
+            .ForEach((ref SpawnPoint spawnPoint, in Translation translation) =>
         {
             spawnPoint.occluded = false;
             float3 spawnPointPosition = translation.Value;
@@ -27,8 +30,6 @@ public class SpawnPointSystem : SystemBase
                     break;
                 }
             }
-        }).Run();
-
-        occluders.Dispose();
+        }).Schedule();
     }
 }
