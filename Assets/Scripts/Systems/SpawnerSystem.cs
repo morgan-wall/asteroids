@@ -40,9 +40,7 @@ public class SpawnerSystem : SystemBase
             var randomGen = randomGenPerThread[nativeThreadIndex];
             spawner.timeUntilNextSpawn += randomGen.NextFloat(spawner.minTimeBetweenSpawns, spawner.maxTimeBetweenSpawns);
             
-            Entity spawnedEntity = commandBuffer.Instantiate(spawner.prefab);
-        
-            // Randomly set the spawn position
+            // Determine if a valid spawn point is available
             int targetIndex = -1;
             int lastIndex = randomGen.NextInt(0, spawnPoints.Length);
             int currentIndex = (lastIndex + 1) % spawnPoints.Length;
@@ -58,9 +56,13 @@ public class SpawnerSystem : SystemBase
             }
             if (targetIndex < 0)
             {
+                // Track the random generator changes
+                randomGenPerThread[nativeThreadIndex] = randomGen;  
                 return;
             }
 
+            // Randomly set the spawn position
+            Entity spawnedEntity = commandBuffer.Instantiate(spawner.prefab);
             commandBuffer.SetComponent(spawnedEntity, new Translation
             {
                 Value = GetComponent<Translation>(spawnPoints[targetIndex]).Value,
